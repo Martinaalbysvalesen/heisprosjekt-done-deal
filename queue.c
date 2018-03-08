@@ -112,19 +112,19 @@ int Q_get_next_floor(floor_nr current_floor, int dirn){
         case DIRN_UP:
             next_floor = Q_iterate_upwards_w_call_up(current_floor);
             if(next_floor != UNDEFINED){
-                printf("1. returns: %d \n", next_floor);
+                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
             next_floor = Q_iterate_downwards_w_call_down(N_FLOORS);
             if(next_floor != UNDEFINED){
-                printf("2. returns: %d \n", next_floor);
+                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
             next_floor = Q_iterate_downwards_w_call_up(current_floor);
             if(next_floor != UNDEFINED){
-                printf("3. returns: %d \n", next_floor);
+                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
@@ -133,19 +133,19 @@ int Q_get_next_floor(floor_nr current_floor, int dirn){
         case DIRN_DOWN:
             next_floor = Q_iterate_downwards_w_call_down(current_floor);
             if(next_floor != UNDEFINED){
-                printf("1. returns: %d \n", next_floor);
+                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
             next_floor = Q_iterate_upwards_w_call_up(N_FLOORS);
             if(next_floor != UNDEFINED){
-                printf("2. returns: %d \n", next_floor);
+                printf("returns floor nr: %d \n", next_floor);                
                 return next_floor;
             }
             
             next_floor = Q_iterate_upwards_w_call_down(current_floor);
             if(next_floor != UNDEFINED){
-                printf("3. returns: %d \n", next_floor);
+                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
@@ -173,22 +173,16 @@ int Q_get_next_dir(floor_nr current_floor, int next_floor){
 
 
 //Fjerne etasjer
-void Q_remove_order(floor_nr floor, elev_motor_direction_t dirn){
+void Q_remove_order(floor_nr floor){
     floor_orders[floor][BUTTON_COMMAND] = 0;
-    if(dirn == DIRN_UP){
-        floor_orders[floor][BUTTON_CALL_UP] = 0;
-    }
-    if (dirn == DIRN_DOWN){
-        floor_orders[floor][BUTTON_CALL_DOWN] = 0;
-    }
+    floor_orders[floor][BUTTON_CALL_UP] = 0;
+    floor_orders[floor][BUTTON_CALL_DOWN] = 0;
 }
 
 
 
 void Q_clear_all_orders(){
     for(int floor = 0; floor < N_FLOORS; floor++){
-        floor_orders[floor][BUTTON_CALL_DOWN] = 0;
-        floor_orders[floor][BUTTON_CALL_UP] = 0;
-        floor_orders[floor][BUTTON_COMMAND] = 0;
+        Q_remove_order(floor);
     }
 }

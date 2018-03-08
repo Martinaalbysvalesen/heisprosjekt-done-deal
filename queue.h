@@ -46,7 +46,7 @@ int Q_get_next_dir(floor_nr current_floor, int next_floor);
 
 
 //Fjerne bestillinger
-void Q_remove_order(floor_nr floor, elev_motor_direction_t dirn);
+void Q_remove_order(floor_nr floor);
 void Q_clear_all_orders();
 
 
