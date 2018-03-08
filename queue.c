@@ -112,19 +112,16 @@ int Q_get_next_floor(floor_nr current_floor, int dirn){
         case DIRN_UP:
             next_floor = Q_iterate_upwards_w_call_up(current_floor);
             if(next_floor != UNDEFINED){
-                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
             next_floor = Q_iterate_downwards_w_call_down(N_FLOORS);
             if(next_floor != UNDEFINED){
-                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
             next_floor = Q_iterate_downwards_w_call_up(current_floor);
             if(next_floor != UNDEFINED){
-                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
@@ -133,19 +130,16 @@ int Q_get_next_floor(floor_nr current_floor, int dirn){
         case DIRN_DOWN:
             next_floor = Q_iterate_downwards_w_call_down(current_floor);
             if(next_floor != UNDEFINED){
-                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             
-            next_floor = Q_iterate_upwards_w_call_up(N_FLOORS);
+            next_floor = Q_iterate_upwards_w_call_up(FIRST);
             if(next_floor != UNDEFINED){
-                printf("returns floor nr: %d \n", next_floor);                
                 return next_floor;
             }
             
             next_floor = Q_iterate_upwards_w_call_down(current_floor);
             if(next_floor != UNDEFINED){
-                printf("returns floor nr: %d \n", next_floor);
                 return next_floor;
             }
             

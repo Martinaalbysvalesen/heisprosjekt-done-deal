@@ -55,15 +55,13 @@ void FSM_update_state(){
             break;
         
         case IDLE:
-
             //Check if queue contains orders
             //returns 1 if there are any orders, 0 otherwise
             if(Q_check_if_orders()){
-                int next_floor = Q_get_next_dir(current_floor, dirn);
-                printf("next_floor: %d \n", next_floor);
-                if(Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn)) != DIRN_STOP){
-                    dirn = Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn));
-                } 
+                int next_floor = Q_get_next_floor(current_floor, dirn);
+                if(Q_get_next_dir(current_floor, next_floor) != DIRN_STOP){
+                    dirn = Q_get_next_dir(current_floor, next_floor);
+                }
                 elev_set_motor_direction(dirn);
                 state = RUNNING;
             }
@@ -72,8 +70,8 @@ void FSM_update_state(){
         case RUNNING:
             //Check if floor is ordered
             //returns 1 if ordered, 0 otherwise
+            
             if(Q_should_stop(current_floor, dirn)){ 
-                
                 elev_set_motor_direction(DIRN_STOP);
                 if(Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn)) != DIRN_STOP){
                     dirn = Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn));
@@ -100,9 +98,11 @@ void FSM_update_state(){
                 //Check if queue contains orders
                 //returns 1 if there are any orders, 0 otherwise
                 if(Q_check_if_orders()){
-                    if(Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn)) != DIRN_STOP){
-                        dirn = Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn));
+                    int next_floor = Q_get_next_floor(current_floor, dirn);
+                    if(Q_get_next_dir(current_floor, next_floor) != DIRN_STOP){
+                        dirn = Q_get_next_dir(current_floor, next_floor);
                     }
+
                     elev_set_motor_direction(dirn);
                     state = RUNNING;
                     break;
