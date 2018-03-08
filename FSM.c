@@ -77,7 +77,6 @@ void FSM_update_state(){
                     dirn = Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn));
                 }
                 elev_set_door_open_lamp(1);
-                Q_remove_order(current_floor);
 
                 timer_reset();
                 state = DOOR_OPEN;
@@ -86,6 +85,8 @@ void FSM_update_state(){
             
         case DOOR_OPEN:
 
+            //Removes orders at once elevator reaches an ordered floor
+            Q_remove_order(current_floor);
             elev_set_button_lamp(BUTTON_CALL_UP, current_floor, 0);
             elev_set_button_lamp(BUTTON_CALL_DOWN, current_floor, 0);
             elev_set_button_lamp(BUTTON_COMMAND, current_floor, 0);
