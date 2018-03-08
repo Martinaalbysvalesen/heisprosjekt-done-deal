@@ -62,6 +62,9 @@ void FSM_update_state(){
                 if(Q_get_next_dir(current_floor, next_floor) != DIRN_STOP){
                     dirn = Q_get_next_dir(current_floor, next_floor);
                 }
+                if (current_floor == next_floor)
+                        dirn = dirn*(-1); //Change direction
+                        
                 elev_set_motor_direction(dirn);
                 state = RUNNING;
             }
@@ -104,6 +107,8 @@ void FSM_update_state(){
                     if(Q_get_next_dir(current_floor, next_floor) != DIRN_STOP){
                         dirn = Q_get_next_dir(current_floor, next_floor);
                     }
+                    if (current_floor == next_floor)
+                        dirn = dirn*(-1); //Change direction
 
                     elev_set_motor_direction(dirn);
                     state = RUNNING;
@@ -116,6 +121,7 @@ void FSM_update_state(){
             break;
             
         case EMERGENCY_STOP:
+
             //Resets the timer as long as the stop is pressed
             while(elev_get_stop_signal()) {
                 timer_reset();
