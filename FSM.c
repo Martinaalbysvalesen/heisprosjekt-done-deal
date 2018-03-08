@@ -64,13 +64,14 @@ void FSM_update_state(){
                 }
                 if (current_floor == next_floor)
                         dirn = dirn*(-1); //Change direction
-                        
+
                 elev_set_motor_direction(dirn);
                 state = RUNNING;
             }
             break;
             
         case RUNNING:
+        
             //Check if floor is ordered
             //returns 1 if ordered, 0 otherwise
             if(Q_should_stop(current_floor, dirn) && elev_get_floor_sensor_signal() != -1){ 
