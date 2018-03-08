@@ -136,6 +136,8 @@ void FSM_update_state(){
             break;
     }
 
+
+/*
     printf("state = %d \n", state);
     printf("direction = %d \n", dirn);
     printf("current floor = %d \n", current_floor);
@@ -150,7 +152,7 @@ void FSM_update_state(){
 
     printf("\n");    
     printf("\n");
-
+*/
 }
 
 

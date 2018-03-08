@@ -22,7 +22,7 @@ int Q_check_if_orders(){
         for(int button = 0; button < N_BUTTONS; button++){
             if(!(floor <= FIRST && button == BUTTON_CALL_DOWN)){ //Ønsker kun gyldige calls
                 if(!(floor >= FOURTH && button == BUTTON_CALL_UP)){
-                    if (Q_should_stop(floor, button)){
+                    if (floor_orders[floor][button]){
                         return 1;
                     }
                 }
