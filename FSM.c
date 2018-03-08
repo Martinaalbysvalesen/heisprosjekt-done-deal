@@ -70,15 +70,15 @@ void FSM_update_state(){
         case RUNNING:
             //Check if floor is ordered
             //returns 1 if ordered, 0 otherwise
-            
-            if(Q_should_stop(current_floor, dirn)){ 
+            if(Q_should_stop(current_floor, dirn) && elev_get_floor_sensor_signal() != -1){ 
                 elev_set_motor_direction(DIRN_STOP);
+            
                 if(Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn)) != DIRN_STOP){
                     dirn = Q_get_next_dir(current_floor, Q_get_next_floor(current_floor, dirn));
                 }
                 elev_set_door_open_lamp(1);
                 Q_remove_order(current_floor);
-                
+
                 elev_set_button_lamp(BUTTON_CALL_UP, current_floor, 0);
                 elev_set_button_lamp(BUTTON_CALL_DOWN, current_floor, 0);
                 elev_set_button_lamp(BUTTON_COMMAND, current_floor, 0);
