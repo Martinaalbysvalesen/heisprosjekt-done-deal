@@ -39,10 +39,10 @@ int Q_should_stop(floor_nr floor, int dirn){
     
     switch (dirn) {
         case DIRN_UP:
-            return (Q_iterate_upwards_w_call_down(FIRST) == floor);
+            return (Q_iterate_downwards_w_call_down(FOURTH) == floor);
             
         case DIRN_DOWN:
-            return (Q_iterate_downwards_w_call_up(FOURTH) == floor);
+            return (Q_iterate_upwards_w_call_up(FIRST) == floor);
     }
     return 0;
 }
