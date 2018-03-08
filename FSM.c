@@ -79,15 +79,16 @@ void FSM_update_state(){
                 elev_set_door_open_lamp(1);
                 Q_remove_order(current_floor);
 
-                elev_set_button_lamp(BUTTON_CALL_UP, current_floor, 0);
-                elev_set_button_lamp(BUTTON_CALL_DOWN, current_floor, 0);
-                elev_set_button_lamp(BUTTON_COMMAND, current_floor, 0);
                 timer_reset();
                 state = DOOR_OPEN;
             }
             break;
             
         case DOOR_OPEN:
+
+            elev_set_button_lamp(BUTTON_CALL_UP, current_floor, 0);
+            elev_set_button_lamp(BUTTON_CALL_DOWN, current_floor, 0);
+            elev_set_button_lamp(BUTTON_COMMAND, current_floor, 0);
 
             //Check if timer is done
             //No need to update state (unless stop is pressed) while countdown
@@ -118,6 +119,8 @@ void FSM_update_state(){
             while(elev_get_stop_signal()) {
                 timer_reset();
             }
+            elev_set_stop_lamp(0);
+
             
             
             //Changes state to door open if elevator is at a floor
@@ -130,7 +133,6 @@ void FSM_update_state(){
             //Check if stop button still is pressed and if timer is done
             //returns 1 if stop is pressed, 0 otherwise
             if(timer_done()){
-                elev_set_stop_lamp(0);
                 state = IDLE;
             }
             break;
